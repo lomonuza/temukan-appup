@@ -30,5 +30,5 @@
 - **Website:** [https://temukan-app.vercel.app](https://temukan-app.vercel.app)
 
 ## Tim Pengembang
-1. **Jauzaa Putri Ardelica** (SMAN 1 Madiun) - *Frontend & Firebase Integration*
-2. **[Jet Imerovigli Singomudo]** (SMAN 1 Madiun) - *Huru hara*
+1. **Jauzaa Putri Ardelica** (SMAN 1 Madiun) - *Frontend Developer, Firebase Integration & Deployment Engineer*
+2. **Jet Imerovigli Singomudo** (SMAN 1 Madiun) - *UI/UX Designer, Firebase Database Architect & Quality Assurance (QA)*
