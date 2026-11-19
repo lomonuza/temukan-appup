@@ -1,0 +1,282 @@
+/* =========================================
+   RESET & VARIABEL
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+}
+
+body {
+    background-color: #f4f7fb;
+    color: #333;
+    padding-bottom: 50px;
+}
+
+/* Utility */
+.mt-20 { margin-top: 20px; }
+.text-green { color: #10b981; }
+.hidden { display: none !important; }
+
+/* =========================================
+   NAVBAR
+   ========================================= */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #64748b;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: #1a56db;
+}
+
+.btn-login {
+    background-color: #1a56db;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* =========================================
+   LAYOUT UTAMA (Grid)
+   ========================================= */
+.main-wrapper {
+    display: grid;
+    grid-template-columns: 320px 1fr; /* Kiri 320px, Kanan sisa layar */
+    gap: 20px;
+    padding: 20px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* =========================================
+   PANEL KIRI (INFO)
+   ========================================= */
+.card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.card-header {
+    padding: 12px 20px;
+    font-weight: 800;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-body {
+    padding: 20px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #475569;
+}
+
+/* Warna Header Card */
+.card-blue-header .card-header { background: #1a56db; color: white; }
+.card-green-header .card-header { background: #d1fae5; color: #065f46; }
+.card-dark-blue-header .card-header { background: #0f172a; color: white; }
+
+.feature-list {
+    list-style: none;
+}
+.feature-list li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-weight: 600;
+}
+
+.tech-logos {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px;
+}
+.tech-logos img {
+    height: 35px;
+    object-fit: contain;
+}
+
+/* =========================================
+   KONTEN KANAN (Banner & Grid Aksi)
+   ========================================= */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Banner Hero */
+.hero-banner {
+    background: linear-gradient(135deg, #e0eaff 0%, #f4f7fb 100%);
+    border-radius: 12px;
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #e2e8f0;
+}
+
+.hero-text h1 {
+    font-size: 42px;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.1;
+}
+
+.hero-text h2 {
+    font-size: 28px;
+    color: #1a56db;
+    margin-bottom: 10px;
+}
+
+.hero-text p {
+    font-size: 16px;
+    color: #475569;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.search-bar {
+    display: flex;
+    background: white;
+    padding: 5px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    width: 100%;
+    max-width: 450px;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    outline: none;
+    border-radius: 8px 0 0 8px;
+    font-size: 14px;
+}
+
+.search-bar button {
+    background-color: #1a56db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+}
+
+/* Grid Form & Daftar */
+.action-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr; /* Form lebih kecil dari daftar */
+    gap: 20px;
+}
+
+/* Styling Daftar Barang di dalam card */
+#listBarang {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.barang-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #ffffff;
+    margin-bottom: 10px;
+}
+
+.barang-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #f1f5f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    margin-right: 15px;
+}
+
+.barang-info { flex: 1; }
+.barang-info h3 { font-size: 15px; color: #0f172a; margin-bottom: 3px; font-weight: 800;}
+.barang-info p { font-size: 12px; color: #64748b; margin-bottom: 2px; }
+
+.status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 800;
+}
+.status-proses { background-color: #dbeafe; color: #1e40af; }
+.status-ditemukan { background-color: #d1fae5; color: #065f46; }
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* =========================================
+   RESPONSIVE (Tampilan HP)
+   ========================================= */
+@media (max-width: 992px) {
+    .main-wrapper {
+        grid-template-columns: 1fr; /* Ubah jadi 1 kolom */
+    }
+    .action-grid {
+        grid-template-columns: 1fr;
+    }
+    .hero-banner {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero-text h1 { font-size: 32px; }
+    .hero-graphic { margin-top: 20px; }
+    .search-bar { margin: 0 auto; }
+}
