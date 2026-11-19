@@ -27,7 +27,7 @@
 4. Pastikan Anda terhubung ke internet karena data diambil langsung dari Firebase.
 
 ## Tautan Publikasi (Live Demo)
-- **Website:** [https://temukan-app.vercel.app](https://temukan-app.vercel.app)
+- **Website:** https://temukan-appup.vercel.app
 
 ## Tim Pengembang
 1. **Jauzaa Putri Ardelica** (SMAN 1 Madiun) - *Frontend Developer, Firebase Integration & Deployment Engineer*
