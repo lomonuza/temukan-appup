@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEMUKAN - Sistem Barang Hilang</title>
+
+    <!-- 1. Panggil CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- 2. Panggil Icon FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ===== CSS TAMBAHAN ===== */
+        .hidden { display: none !important; }
+        .user-badge { display: flex; align-items: center; gap: 10px; font-weight: bold; color: #1a56db; }
+        .btn-logout { background-color: #ef4444; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .btn-logout:hover { background-color: #dc2626; }
+
+        /* Smooth scroll global */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px; /* supaya judul tidak tertutup navbar */
+        }
+
+        /* Radio Button */
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            background: #f8fafc;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .radio-group label {
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #1e293b;
+        }
+        .radio-group input[type="radio"] {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Form Input */
+        .form-row { margin-bottom: 10px; }
+        .form-row label { font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px; display: block; }
+        .form-row input, .form-row textarea {
+            width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 5px; font-family: inherit;
+        }
+
+        /* Tombol WhatsApp */
+        .btn-wa {
+            display: inline-block;
+            background-color: #25D366;
+            color: white !important;
+            padding: 4px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .btn-wa:hover { background-color: #1ebe57; }
+
+        /* Section Tentang di bawah (full width) */
+        .tentang-section {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-top: 6px solid #1a56db;
+        }
+        .tentang-section h2 {
+            color: #1a56db;
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+        .tentang-section p {
+            color: #334155;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        .tentang-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .tentang-item {
+            background: #f0f6ff;
+            border-radius: 10px;
+            padding: 15px;
+            border-left: 4px solid #1a56db;
+        }
+        .tentang-item h4 {
+            margin: 0 0 5px 0;
+            color: #1a56db;
+            font-size: 14px;
+        }
+        .tentang-item p {
+            margin: 0;
+            font-size: 13px;
+            color: #475569;
+        }
+
+        /* Animasi muncul saat scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.7s ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-magnifying-glass" style="color: #1a56db;"></i> TEMUKAN
+        </div>
+        <ul class="nav-links">
+            <li><a href="#beranda" class="active">Beranda</a></li>
+            <li><a href="#lapor">Lapor Barang</a></li>
+            <li><a href="#daftar">Cari Barang</a></li>
+            <li><a href="#tentang">Tentang</a></li>
+        </ul>
+        <div id="authArea">
+            <a href="login.html" class="btn-login">Login</a>
+        </div>
+    </nav>
+
+    <!-- ================= MAIN ================= -->
+    <main class="main-wrapper" id="beranda">
+
+        <!-- KIRI: Panel Info -->
+        <aside class="info-panel">
+            <div class="card card-blue-header">
+                <div class="card-header"><i class="fa-solid fa-lightbulb"></i> Tentang Produk</div>
+                <div class="card-body">
+                    <p><strong>TEMUKAN</strong> adalah aplikasi web untuk melaporkan barang hilang dan menemukan barang yang ditemukan di lingkungan sekolah. Aplikasi ini memudahkan siswa, guru, dan staf sekolah dalam berbagi informasi barang hilang maupun ditemukan.</p>
+                </div>
+            </div>
+
+            <div class="card card-blue-header mt-20">
+                <div class="card-header"><i class="fa-solid fa-star"></i> Fitur Utama</div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Lapor barang hilang atau ditemukan</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Cari barang dengan kata kunci</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Lihat status laporan (proses / ditemukan)</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Upload foto barang</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Hubungi pelapor via WhatsApp</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card card-green-header mt-20">
+                <div class="card-header"><i class="fa-solid fa-thumbs-up"></i> Kelebihan</div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Mudah digunakan dan tampilan menarik</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Solusi masalah nyata di sekolah</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Responsif (bisa diakses HP/PC)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card card-blue-header mt-20">
+                <div class="card-header"><i class="fa-solid fa-gear"></i> Teknologi yang Digunakan</div>
+                <div class="card-body tech-logos">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg" alt="HTML">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg" alt="CSS">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" alt="JS">
+                    <img src="https://assets.vercel.com/image/upload/v1588805858/repositories/vercel/logo.png" alt="Vercel">
+                </div>
+            </div>
+        </aside>
+
+        <!-- KANAN: Area Utama -->
+        <section class="main-content">
+
+            <!-- Banner Hero -->
+            <div class="hero-banner">
+                <div class="hero-text">
+                    <h1>TEMUKAN</h1>
+                    <h2>Sistem Barang Hilang</h2>
+                    <p>Cari, Laporkan, dan Temukan Barang Di Lingkungan Sekolah!</p>
+                    <div class="search-bar">
+                        <input type="text" id="searchInput" placeholder="Cari barang (misal: tas, HP, dompet...)">
+                        <button id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                </div>
+                <div class="hero-graphic">
+                    <div style="font-size: 120px; text-align: center;">🎒📱</div>
+                </div>
+            </div>
+
+            <!-- Grid Form & Daftar -->
+            <div class="action-grid">
+
+                <!-- Form Lapor -->
+                <div id="lapor" class="card card-dark-blue-header hidden">
+                    <div class="card-header">Lapor Barang</div>
+                    <div class="card-body">
+                        <form id="formLapor">
+
+                            <div class="radio-group">
+                                <label>
+                                    <input type="radio" name="jenisLaporan" value="Hilang" checked> Barang Hilang
+                                </label>
+                                <label>
+                                    <input type="radio" name="jenisLaporan" value="Ditemukan"> Barang Ditemukan
+                                </label>
+                            </div>
+
+                            <div style="display: flex; gap: 15px;">
+                                <div class="photo-upload" style="width: 100px;">
+                                    <label for="fotoBarang" style="cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 150px; background: #f0f4f8; border: 2px dashed #cbd5e1; border-radius: 8px;">
+                                        <span style="font-size: 30px;">🎒</span>
+                                        <small style="font-size: 10px; text-align: center; margin-top: 5px;">Upload<br>Foto</small>
+                                    </label>
+                                    <input type="file" id="fotoBarang" accept="image/*" style="display: none;">
+                                </div>
+
+                                <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
+                                    <div class="form-row">
+                                        <label>Nama Pelapor *</label>
+                                        <input type="text" id="namaPelapor" required placeholder="Nama Lengkap Anda">
+                                    </div>
+                                    <div class="form-row">
+                                        <label>Nomor WhatsApp *</label>
+                                        <input type="tel" id="noHp" required placeholder="Contoh: 08123456789">
+                                    </div>
+                                    <div class="form-row">
+                                        <label>Nama Barang *</label>
+                                        <input type="text" id="namaBarang" required placeholder="Tas Sekolah">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 10px; margin-top: 8px;">
+                                <div class="form-row" style="flex: 1;">
+                                    <label>Tanggal Kejadian *</label>
+                                    <input type="date" id="tanggalKejadian" required>
+                                </div>
+                                <div class="form-row" style="flex: 1;">
+                                    <label>Lokasi Terakhir *</label>
+                                    <input type="text" id="lokasi" required placeholder="Ruang Kelas 10 IPA 1">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <label>Deskripsi / Ciri-ciri *</label>
+                                <input type="text" id="deskripsi" required placeholder="Tas warna hitam, ada logo SMP">
+                            </div>
+
+                        </form>
+                        <button type="submit" form="formLapor" id="btnKirim" class="btn-kirim" style="margin-top: 10px; width: 100%; background: #2563eb; color: white; padding: 10px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">
+                            <i class="fa-solid fa-paper-plane"></i> Kirim Laporan
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pesan Login -->
+                <div id="pesanLogin" class="card card-dark-blue-header">
+                    <div class="card-header">Lapor Barang Hilang</div>
+                    <div class="card-body" style="text-align: center; padding: 30px 20px;">
+                        <i class="fa-solid fa-lock" style="font-size: 40px; color: #f59e0b; margin-bottom: 15px;"></i>
+                        <p style="margin-bottom: 20px;">Anda harus login terlebih dahulu untuk melaporkan barang.</p>
+                        <a href="login.html" class="btn-login" style="display: block; background: #f59e0b;">Login Sekarang</a>
+                    </div>
+                </div>
+
+                <!-- Daftar Barang -->
+                <div id="daftar" class="card card-dark-blue-header">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>Daftar Laporan Barang</span>
+                        <input type="text" id="searchLocalInput" placeholder="Cari..." style="padding: 5px 10px; border-radius: 5px; border: none; font-size: 12px; width: 150px;">
+                    </div>
+                    <div class="card-body" id="listBarang">
+                        <p style="text-align:center; color:#94a3b8;">Memuat data...</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ============ SECTION TENTANG (bisa di-scroll) ============ -->
+            <section id="tentang" class="tentang-section reveal">
+                <h2><i class="fa-solid fa-circle-info"></i> Tentang TEMUKAN</h2>
+                <p>
+                    <strong>TEMUKAN</strong> adalah sistem informasi barang hilang yang dibuat untuk membantu
+                    siswa, guru, dan staf sekolah dalam melaporkan barang yang hilang maupun barang yang ditemukan
+                    di lingkungan sekolah. Dengan aplikasi ini, proses pencarian barang menjadi lebih cepat,
+                    transparan, dan mudah diakses.
+                </p>
+
+                <div class="tentang-grid">
+                    <div class="tentang-item">
+                        <h4><i class="fa-solid fa-bullseye"></i> Tujuan</h4>
+                        <p>Mempermudah warga sekolah dalam mengelola laporan barang hilang dan ditemukan.</p>
+                    </div>
+                    <div class="tentang-item">
+                        <h4><i class="fa-solid fa-users"></i> Pengguna</h4>
+                        <p>Siswa, guru, dan staf SMAN 1 Madiun yang membutuhkan sarana pelaporan barang.</p>
+                    </div>
+                    <div class="tentang-item">
+                        <h4><i class="fa-solid fa-bolt"></i> Cara Kerja</h4>
+                        <p>Login → Lapor barang → Barang tampil di daftar → Hubungi pelapor lewat WhatsApp.</p>
+                    </div>
+                    <div class="tentang-item">
+                        <h4><i class="fa-solid fa-code"></i> Teknologi</h4>
+                        <p>HTML, CSS, JavaScript, dan Firebase Firestore untuk penyimpanan data real-time.</p>
+                    </div>
+                </div>
+            </section>
+
+        </section>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <p>&copy; 2026 TEMUKAN - Sistem Barang Hilang. Dibuat Oleh JJ ( JAUZAA & JET ) (SMAN 1 Madiun) 2026.</p>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- SCRIPT: SMOOTH SCROLL + NAVBAR ACTIVE -->
+    <!-- ========================================== -->
+    <script>
+        // 1) Smooth scroll semua link #
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                    const navLink = document.querySelector(`.nav-links a[href="${targetId}"]`);
+                    if (navLink) navLink.classList.add('active');
+                }
+            });
+        });
+
+        // 2) Tombol search hero -> scroll ke daftar barang
+        const searchBtn = document.getElementById('searchBtn');
+        const searchInput = document.getElementById('searchInput');
+        if (searchBtn) {
+            searchBtn.addEventListener('click', () => {
+                const daftar = document.getElementById('daftar');
+                if (daftar) {
+                    daftar.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    const localSearch = document.getElementById('searchLocalInput');
+                    if (localSearch) {
+                        // salin keyword ke pencarian lokal
+                        localSearch.value = searchInput.value;
+                        setTimeout(() => localSearch.focus(), 600);
+                    }
+                }
+            });
+        }
+        if (searchInput) {
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') { e.preventDefault(); searchBtn.click(); }
+            });
+        }
+
+        // 3) Navbar active otomatis sesuai posisi scroll
+        const sections = document.querySelectorAll('#beranda, #lapor, #daftar, #tentang');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(sec => {
+                if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
+            });
+            document.querySelectorAll('.nav-links a').forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+            });
+        });
+
+        // 4) Animasi reveal saat elemen masuk viewport
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        reveals.forEach(el => observer.observe(el));
+    </script>
+
+    <!-- ========================================== -->
+    <!-- LOGIKA FIREBASE (JANGAN DIHAPUS) -->
+    <!-- ========================================== -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB6wbESXwG1x43GCNUTYfYQ-X5KksiLnzE",
+            authDomain: "temukan-app-20b29.firebaseapp.com",
+            projectId: "temukan-app-20b29",
+            storageBucket: "temukan-app-20b29.firebasestorage.app",
+            messagingSenderId: "964187120219",
+            appId: "1:964187120219:web:3e62624f73ac896fd5957e"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // 1. CEK STATUS LOGIN
+        const userEmail = localStorage.getItem('userEmail');
+        const authArea = document.getElementById('authArea');
+        const formLaporSection = document.getElementById('lapor');
+        const pesanLoginSection = document.getElementById('pesanLogin');
+
+        if (userEmail) {
+            authArea.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-weight: bold; color: #1a56db;"><i class="fa-solid fa-user-circle"></i> ${userEmail}</span>
+                    <button onclick="logout()" style="background: #ef4444; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">Logout</button>
+                </div>
+            `;
+            if (formLaporSection) formLaporSection.classList.remove('hidden');
+            if (pesanLoginSection) pesanLoginSection.classList.add('hidden');
+        } else {
+            if (formLaporSection) formLaporSection.classList.add('hidden');
+            if (pesanLoginSection) pesanLoginSection.classList.remove('hidden');
+        }
+
+        window.logout = () => {
+            localStorage.removeItem('userEmail');
+            alert('Anda telah logout.');
+            window.location.reload();
+        };
+
+        // 2. TAMPILKAN DATA REAL-TIME
+        const listBarangContainer = document.getElementById('listBarang');
+        const q = query(collection(db, "laporan_barang"), orderBy("id", "desc"));
+
+        onSnapshot(q, (snapshot) => {
+            listBarangContainer.innerHTML = '';
+            if (snapshot.empty) {
+                listBarangContainer.innerHTML = '<p style="text-align:center; color:#94a3b8;">Belum ada laporan barang.</p>';
+                return;
+            }
+
+            snapshot.forEach((doc) => {
+                const barang = doc.data();
+                const tglLapor = new Date(barang.id).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+
+                let tglKejadian = '-';
+                if (barang.tanggalKejadian) {
+                    tglKejadian = new Date(barang.tanggalKejadian).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                }
+
+                const imgContent = barang.foto ? `<img src="${barang.foto}" class="barang-img">` : `<div class="barang-img">📦</div>`;
+                const statusClass = barang.status === 'Ditemukan' ? 'status-ditemukan' : 'status-proses';
+                const jenisClass = barang.jenis === 'Ditemukan' ? 'status-ditemukan' : 'status-proses';
+
+                let noWa = barang.noHp || '';
+                if (noWa.startsWith('0')) noWa = '62' + noWa.substring(1);
+                const linkWa = `https://wa.me/${noWa}?text=Halo%20${barang.pelapor},%20saya%20melihat%20laporan%20Anda%20mengenai%20${barang.nama}%20di%20aplikasi%20TEMUKAN.`;
+
+                listBarangContainer.innerHTML += `
+                    <div class="barang-item">
+                        ${imgContent}
+                        <div class="barang-info">
+                            <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 5px;">
+                                <h3 style="margin: 0;">${barang.nama}</h3>
+                                <span class="status ${jenisClass}" style="font-size: 10px; padding: 2px 8px;">${barang.jenis || 'Hilang'}</span>
+                            </div>
+                            <p>${barang.deskripsi}</p>
+                            <p><i class="fa-solid fa-location-dot"></i> ${barang.lokasi}</p>
+                            <p><i class="fa-solid fa-calendar"></i> Kejadian: ${tglKejadian}</p>
+                            <p><small>Oleh: ${barang.pelapor} (${tglLapor})</small></p>
+                            <a href="${linkWa}" target="_blank" class="btn-wa"><i class="fa-brands fa-whatsapp"></i> Hubungi Pelapor</a>
+                        </div>
+                        <span class="status ${statusClass}">${barang.status}</span>
+                    </div>
+                `;
+            });
+        }, (error) => {
+            console.error("Error ambil data:", error);
+            listBarangContainer.innerHTML = '<p style="text-align:center; color:red;">Gagal memuat data. Cek aturan Firestore.</p>';
+        });
+
+        // 3. LOGIKA FORM LAPOR
+        const formLapor = document.getElementById('formLapor');
+        if (formLapor) {
+            formLapor.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById('btnKirim');
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
+                btn.disabled = true;
+
+                const emailPelapor = userEmail || 'Anonim';
+                const fileFoto = document.getElementById('fotoBarang').files[0];
+
+                const prosesSimpan = async (fotoBase64 = '') => {
+                    const jenisLaporan = document.querySelector('input[name="jenisLaporan"]:checked').value;
+
+                    const barangBaru = {
+                        id: Date.now(),
+                        nama: document.getElementById('namaBarang').value,
+                        deskripsi: document.getElementById('deskripsi').value,
+                        lokasi: document.getElementById('lokasi').value,
+                        tanggalKejadian: document.getElementById('tanggalKejadian').value,
+                        namaPelapor: document.getElementById('namaPelapor').value,
+                        noHp: document.getElementById('noHp').value,
+                        foto: fotoBase64,
+                        status: 'Proses',
+                        jenis: jenisLaporan,
+                        pelapor: emailPelapor
+                    };
+
+                    try {
+                        await addDoc(collection(db, "laporan_barang"), barangBaru);
+                        alert('Laporan berhasil dikirim!');
+                        formLapor.reset();
+                    } catch (error) {
+                        console.error("Error: ", error);
+                        alert('Gagal mengirim laporan.');
+                    } finally {
+                        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Laporan';
+                        btn.disabled = false;
+                    }
+                };
+
+                if (fileFoto) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => prosesSimpan(event.target.result);
+                    reader.readAsDataURL(fileFoto);
+                } else {
+                    prosesSimpan();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
